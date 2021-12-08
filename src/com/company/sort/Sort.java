@@ -3,42 +3,35 @@ package com.company.sort;
 import java.util.Arrays;
 
 public abstract class Sort {
-    protected int [] arr;
+    protected int[] arr;
     protected int n;
+    private static final int CAN_DO_SORT = 2;
 
-    public Sort(){
-
+    public Sort() {
+        setArr(new int[0]);
     }
 
-    public Sort(int [] arr){
+    public Sort(int[] arr) {
+        setArr(arr);
+    }
+
+    public void setArr(int[] arr) {
         this.n = arr.length;
-        this.arr = Arrays.copyOf(arr,n);
+        this.arr = Arrays.copyOf(arr, n);
     }
 
-    public void setArr(int [] arr){
-        this.n = arr.length;
-        this.arr = Arrays.copyOf(arr,n);
-    }
-
-    private int preCheck(){
-        if(arr == null){
+    private int preCheck() {
+        if (arr == null) {
             return -1;
         }
-        if(arr.length == 0){
-            return 0;
+        if (n <= 1) {
+            return n;
         }
-        if(arr.length == 1){
-            return 1;
-        }
-        return 2;
+        return CAN_DO_SORT;
     }
 
-    public int[] sort(){
-        int preCheckRes = preCheck();
-        if(preCheckRes != 2){
-            return arr;
-        }
-        return doSort();
+    public int[] sort() {
+        return preCheck() == CAN_DO_SORT ? doSort() : arr;
     }
 
     protected abstract int[] doSort();
